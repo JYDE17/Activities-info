@@ -13,6 +13,6 @@ Maximum 4 pers par écran
 	1H minimum  
 
 ## VIP
-Golf & multisport VIP 2 écrans multi sports + 3 écrans golf (2H min)
-Sim VIP min 2H (400$ / Heure) 50pers/ max
-Multisport offert en VIP seulement
+Golf & multisport VIP 2 écrans multi sports + 3 écrans golf (2H min)  
+Sim VIP min 2H (400$ / Heure) 50pers/ max  
+Multisport offert en VIP seulement  
