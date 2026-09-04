@@ -12,3 +12,5 @@ Décharge a signé / arrivé 15min avant
 Walkin = vendre calendrier  
 Coupon d’activité obligatoire  
 
+## VIP
+Dart 300$/heure (24 pers max) 6pers/écran
