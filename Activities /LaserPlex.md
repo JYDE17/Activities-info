@@ -6,6 +6,7 @@
 26$/3 games  
 
 ## Conditions 
+Maximum 20 personnes en meme temps  
 Recommander 6ans et +  
 Hauteur 106cm (42 PO)(3.5pd) essayer veste  
 Décharge obligatoire a signé  
