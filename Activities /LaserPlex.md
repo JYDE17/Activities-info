@@ -16,3 +16,5 @@ Chaussure fermé obligatoire
 Walkin = vendre dans calendrier  
 Coupon d‘activité obligatoire  
 
+## VIP
+Laser-Plex VIP 700$ (40 participants max)
