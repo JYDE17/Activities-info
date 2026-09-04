@@ -12,3 +12,7 @@ Maximum 4 pers par écran
 	Golfin card = prendre note in RF notes  
 	1H minimum  
 
+## VIP
+Golf & multisport VIP 2 écrans multi sports + 3 écrans golf (2H min)
+Sim VIP min 2H (400$ / Heure) 50pers/ max
+Multisport offert en VIP seulement
