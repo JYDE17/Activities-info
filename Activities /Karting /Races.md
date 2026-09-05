@@ -1,5 +1,13 @@
 # Races
 ## Prix
+Prix par personnes  
+33$/1 course  
+60$/2 courses  
+77$/3 courses   
+### Forfait 6 & 10 courses  
+Non transferable  
+145$/6 courses  
+225$/10 courses  
 
 ## Conditions
 142 cm min = 4’8 minimum  
