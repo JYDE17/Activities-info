@@ -244,12 +244,13 @@ window.ACTIVITES = [
   {
     nom: "Événement corporatif / groupe",
     categorie: "Événements & salles",
-    resume: "Jusqu'à 120 invités",
+    resume: "Forfaits de groupe sur mesure",
     sections: [
       { titre: "À savoir", lignes: [
-        "Forfaits sur mesure — jusqu'à 120 invités",
+        "Forfaits sur mesure pour groupes",
+        "Jusqu'à 120 invités au total (capacité du Chicane Resto·Bar)",
+        "Chaque activité a sa propre capacité (voir sa fiche)",
         "Traiteur par le Chicane Resto·Bar",
-        "Accès à toutes les activités",
         "Aucun apport extérieur",
       ]},
       { titre: "Options VIP (par heure)", lignes: [
