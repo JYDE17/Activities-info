@@ -34,6 +34,11 @@ window.ACTIVITES = [
         ["6 courses",  "145$"],
         ["10 courses", "225$"],
       ]},
+      { titre: "Le circuit", lignes: [
+        "Karts électriques haute performance",
+        "Épingles, chicanes et longue ligne droite",
+        "Chaque course dure 8 minutes",
+      ]},
       { titre: "Conditions", lignes: [
         "142 cm min (4'8\")",
         "Moins de 12 ans : Junior ou qualifié standard",
@@ -83,6 +88,10 @@ window.ACTIVITES = [
     categorie: "Activités",
     resume: "Laser tag",
     sections: [
+      { titre: "À savoir", lignes: [
+        "Arène thématique façon ville",
+        "Stratégie, esprit d'équipe et réflexes",
+      ]},
       { titre: "Prix", lignes: [
         ["1 partie",  "12$"],
         ["2 parties", "20$"],
@@ -106,6 +115,10 @@ window.ACTIVITES = [
     categorie: "Activités",
     resume: "1h par personne",
     sections: [
+      { titre: "À savoir", lignes: [
+        "4 allées de lancer",
+        "Habileté, précision et compétition amicale",
+      ]},
       { titre: "Prix", lignes: [
         ["1 heure / personne", "30$"],
       ]},
@@ -128,6 +141,10 @@ window.ACTIVITES = [
     categorie: "Activités",
     resume: "Minimum 1h",
     sections: [
+      { titre: "À savoir", lignes: [
+        "4 allées interactives",
+        "Jeux numériques + vraies fléchettes",
+      ]},
       { titre: "Prix", lignes: [
         ["Par personne", "15$"],
         "Minimum 1 heure",
@@ -151,6 +168,11 @@ window.ACTIVITES = [
     categorie: "Activités",
     resume: "Par simulateur / heure",
     sections: [
+      { titre: "À savoir", lignes: [
+        "5 simulateurs intérieurs",
+        "Parcours célèbres du monde entier",
+        "Suivi précis de chaque swing",
+      ]},
       { titre: "Prix", lignes: [
         ["1 simulateur / heure", "35$"],
         "Max 4 pers par écran — 1h minimum",
@@ -242,8 +264,12 @@ window.ACTIVITES = [
   {
     nom: "Resto (privatisation)",
     categorie: "Événements & salles",
-    resume: "Resto VIP",
+    resume: "Chicane Resto·Bar",
     sections: [
+      { titre: "À savoir", lignes: [
+        "Bar sportif et restaurant du centre",
+        "Jusqu'à 120 places",
+      ]},
       { titre: "Prix", lignes: [
         ["Par heure", "250$"],
       ]},
