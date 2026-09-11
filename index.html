@@ -6,10 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <title>GoPlex — Fiches d'activités</title>
-<script src="qz-tray.js"></script>
-<script src="jsrsasign-all-min.js"></script>
 <script src="logo.js"></script>
-<script src="signing.js"></script>
 <script src="activites.js"></script>
 <style>
   /* ---------- Palette de marque GoPlex ---------- */
@@ -22,7 +19,6 @@
     --or:#D5A62E;         /* or principal */
     --or-2:#E8CE6B;       /* or clair */
     --noir:#1B1917;
-    --ok:#3E7D4F; --err:#B23B3B;
   }
   *{box-sizing:border-box}
   html,body{margin:0}
@@ -47,54 +43,23 @@
   header .titre{border-left:1px solid var(--line); padding-left:18px}
   header .titre h1{margin:0; font-size:16px; letter-spacing:.01em}
   header .titre .eyebrow{margin-bottom:4px}
-  #statut{
-    margin-left:auto; font:600 12px/1 "Arial Narrow",Arial,sans-serif;
-    letter-spacing:.06em; padding:8px 14px; border-radius:999px;
-    background:#F1ECE1; color:var(--muted); border:1px solid var(--line);
-    white-space:nowrap;
-  }
-  #statut.ok{background:rgba(62,125,79,.10); color:var(--ok); border-color:rgba(62,125,79,.25)}
-  #statut.err{background:rgba(178,59,59,.08); color:var(--err); border-color:rgba(178,59,59,.25)}
 
   /* filet or façon ligne de course */
   .stripe{height:3px; background:linear-gradient(90deg,var(--or) 0%,var(--or-2) 50%,var(--or) 100%)}
 
-  /* ---------- Barre de contrôle ---------- */
-  .barre{
-    display:flex; align-items:center; gap:12px; flex-wrap:wrap;
-    padding:14px 28px; background:var(--card); border-bottom:1px solid var(--line);
-  }
-  .barre label{font:600 11px/1 "Arial Narrow",Arial,sans-serif;
-    letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
-  select,input[type=search]{
-    font-size:14px; color:var(--ink); background:var(--card);
-    border:1px solid var(--line); border-radius:8px; padding:9px 12px;
-  }
-  select{cursor:pointer}
-  select:focus-visible,input:focus-visible{outline:2px solid var(--or); outline-offset:1px}
-  button{font-family:inherit; cursor:pointer; border-radius:8px}
-  .btn{
-    border:1px solid var(--line); background:var(--card); color:var(--ink);
-    padding:9px 16px; font-size:14px;
-  }
-  .btn:hover{border-color:var(--or)}
-  .btn-or{
-    background:var(--noir); color:#fff; border:1px solid var(--noir);
-    padding:10px 18px; font-size:14px; font-weight:600;
-  }
-  .btn-or:hover{background:#000}
-  .btn-or:disabled{background:#D9D3C7; border-color:#D9D3C7; color:#fff; cursor:not-allowed}
-  button:focus-visible{outline:2px solid var(--or); outline-offset:2px}
-
   /* ---------- Disposition principale (2 volets) ---------- */
   main{
-    display:grid; grid-template-columns:1fr 360px; gap:26px;
-    max-width:1080px; margin:0 auto; padding:26px 28px 60px; align-items:start;
+    display:grid; grid-template-columns:1fr 400px; gap:26px;
+    max-width:1120px; margin:0 auto; padding:26px 28px 60px; align-items:start;
   }
-  @media (max-width:820px){ main{grid-template-columns:1fr} }
+  @media (max-width:860px){ main{grid-template-columns:1fr} }
 
-  .recherche{margin:0 0 18px}
-  .recherche input{width:100%}
+  .recherche{margin:0 0 18px; position:relative}
+  .recherche input{
+    width:100%; font-size:15px; color:var(--ink); background:var(--card);
+    border:1px solid var(--line); border-radius:10px; padding:12px 14px;
+  }
+  .recherche input:focus-visible{outline:2px solid var(--or); outline-offset:1px}
 
   .groupe{margin-bottom:26px}
   .groupe .eyebrow{margin-bottom:10px}
@@ -102,92 +67,56 @@
   .choix{
     text-align:left; border:1px solid var(--line); background:var(--card);
     padding:14px 16px; display:flex; flex-direction:column; gap:3px;
+    cursor:pointer; font-family:inherit; border-radius:8px;
     transition:border-color .12s, box-shadow .12s, transform .06s;
   }
   .choix:hover{border-color:var(--or); box-shadow:0 2px 10px rgba(213,166,46,.18)}
   .choix:active{transform:translateY(1px)}
+  .choix:focus-visible{outline:2px solid var(--or); outline-offset:2px}
   .choix.actif{border-color:var(--or); box-shadow:inset 3px 0 0 var(--or)}
   .choix b{font-size:14.5px}
   .choix span{font-size:12px; color:var(--muted)}
   .vide{color:var(--muted); font-size:14px; padding:8px 2px}
 
-  /* ---------- Volet aperçu (sticky) ---------- */
+  /* ---------- Volet fiche (sticky) ---------- */
   aside{position:sticky; top:18px}
-  .apercu-carte{
-    background:var(--card); border:1px solid var(--line); border-radius:12px;
-    padding:18px; box-shadow:0 6px 22px rgba(23,20,14,.06);
+  .fiche{
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    overflow:hidden; box-shadow:0 6px 22px rgba(23,20,14,.06);
   }
-  .apercu-titre{
-    display:flex; align-items:center; gap:8px; margin:0 0 12px;
-    font:600 11px/1 "Arial Narrow",Arial,sans-serif;
-    letter-spacing:.16em; text-transform:uppercase; color:var(--muted);
-  }
-  .apercu-scene{
-    background:var(--paper); border:1px dashed var(--line); border-radius:8px;
-    padding:14px; display:flex; justify-content:center;
-  }
-  .apercu-scene .ticket{width:72mm; background:#fff; padding:6mm 4mm;
-    box-shadow:0 1px 6px rgba(0,0,0,.08)}
-  .apercu-vide{color:var(--muted); font-size:13.5px; text-align:center; padding:26px 6px}
-  .apercu-actions{margin-top:14px}
-  .apercu-actions .btn-or{width:100%; padding:13px}
+  .fiche-tete{padding:22px 22px 18px; border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,#fff, #FCFAF5)}
+  .fiche-tete .cat{margin-bottom:8px}
+  .fiche-tete h2{margin:0; font-size:22px; letter-spacing:.01em}
+  .fiche-tete .resume{margin:6px 0 0; color:var(--muted); font-size:14px}
+  .fiche-corps{padding:8px 22px 22px}
 
-  /* ---------- STYLE DU REÇU (partagé écran + impression) ---------- */
-  .ticket{font-family:Arial,Helvetica,sans-serif; color:#000; width:100%}
-  .ticket .tlogo{display:block; width:66%; margin:0 auto 3mm}
-  .ticket .tsep{border:0; border-top:1.5px solid #000; margin:2.6mm 0}
-  .ticket .tsep.fin{border-top-style:double; border-top-width:3px}
-  .ticket .tnom{text-align:center; font-weight:700; font-size:13pt;
-    letter-spacing:.03em; text-transform:uppercase; margin:0 0 .6mm}
-  .ticket .tresume{text-align:center; font-size:8.5pt; font-style:italic;
-    color:#000; margin:0 0 1mm}
-  .ticket .tsectitre{font-size:8pt; letter-spacing:.16em; text-transform:uppercase;
-    margin:2.4mm 0 1mm; text-align:center}
-  .ticket .tsous{text-align:center; font-size:8.5pt; font-weight:700; margin:1.6mm 0 .6mm}
-  .ticket .tnote{font-size:9pt; margin:.7mm 0; text-align:left}
-  .ticket .trow{display:flex; justify-content:space-between; gap:5mm;
-    font-size:9.5pt; margin:.8mm 0; align-items:baseline}
-  .ticket .trow .r{text-align:right; white-space:nowrap; font-weight:700}
-  .ticket .tmerci{text-align:center; font-size:8pt; margin-top:.6mm}
+  .sec{padding:16px 0; border-bottom:1px solid var(--line)}
+  .sec:last-child{border-bottom:0; padding-bottom:4px}
+  .sec .eyebrow{color:var(--or); margin-bottom:10px}
+  .row{display:flex; justify-content:space-between; gap:14px; align-items:baseline;
+    padding:5px 0; font-size:15px}
+  .row + .row{border-top:1px dashed var(--line)}
+  .row .v{font-weight:700; white-space:nowrap; text-align:right}
+  .note{display:flex; gap:9px; padding:4px 0; font-size:14.5px; color:var(--ink)}
+  .note::before{content:""; flex:0 0 6px; height:6px; margin-top:8px;
+    border-radius:50%; background:var(--or)}
+  .sous{font-weight:700; font-size:13px; margin:10px 0 4px; color:var(--ink);
+    letter-spacing:.02em}
 
-  /* noeud caché de mesure (hauteur d'impression exacte) */
-  #mesure{position:absolute; visibility:hidden; left:-9999px; top:0}
-
-  /* ---------- Toast ---------- */
-  #toast{
-    position:fixed; left:50%; bottom:26px; transform:translate(-50%,20px);
-    background:var(--noir); color:#fff; padding:12px 22px; border-radius:999px;
-    font-size:14px; font-weight:600; opacity:0; pointer-events:none;
-    transition:opacity .18s, transform .18s;
-    box-shadow:0 8px 24px rgba(23,20,14,.25); max-width:88vw; text-align:center;
-  }
-  #toast.show{opacity:1; transform:translate(-50%,0)}
-  #toast.err{background:var(--err)}
-  #toast .pastille{color:var(--or-2)}
+  .placeholder{padding:52px 26px; text-align:center; color:var(--muted); font-size:14.5px}
+  .placeholder .big{font-size:30px; display:block; margin-bottom:12px; opacity:.5}
 </style>
 </head>
 <body>
 <header>
   <img class="logo" id="logoEntete" alt="GoPlex">
   <div class="titre">
-    <div class="eyebrow">Point de vente</div>
+    <div class="eyebrow">Info activités</div>
     <h1>Fiches d'activités</h1>
   </div>
-  <div id="statut">QZ Tray — hors ligne</div>
 </header>
 <div class="stripe"></div>
-
-<div class="barre">
-  <button class="btn-or" id="btnConnecter">Connecter QZ Tray</button>
-  <label>Imprimante</label>
-  <select id="imprimante"><option value="">Défaut du système</option></select>
-  <button class="btn" id="btnRafraichir">↻ Détecter</button>
-  <label style="margin-left:8px">Papier</label>
-  <select id="largeur">
-    <option value="48">80 mm</option>
-    <option value="32">58 mm</option>
-  </select>
-</div>
 
 <main>
   <section>
@@ -198,20 +127,15 @@
   </section>
 
   <aside>
-    <div class="apercu-carte">
-      <p class="apercu-titre">⎙ Aperçu du reçu</p>
-      <div class="apercu-scene">
-        <div id="apercu"><p class="apercu-vide">Choisis une activité à gauche pour voir la fiche à imprimer.</p></div>
-      </div>
-      <div class="apercu-actions">
-        <button class="btn-or" id="btnImprimer" disabled>Imprimer la fiche</button>
+    <div class="fiche" id="fiche">
+      <div class="placeholder">
+        <span class="big">🎯</span>
+        Clique une activité à gauche pour voir toutes ses infos
+        (prix, conditions, VIP).
       </div>
     </div>
   </aside>
 </main>
-
-<div id="mesure"></div>
-<div id="toast" role="status" aria-live="polite"></div>
 
 <script>
 /* ============================================================
@@ -219,46 +143,45 @@
    ============================================================ */
 const ACTIVITES = window.ACTIVITES || [];
 const LOGO = window.LOGO || {};
-const PIED = window.PIED_DE_PAGE || '';
-document.getElementById('logoEntete').src = LOGO.couleur || '';
+if(LOGO.couleur) document.getElementById('logoEntete').src = LOGO.couleur;
 
-const largeurMM = () => document.getElementById('largeur').value === '32' ? 48 : 72;
 const esc = s => String(s==null?'':s)
   .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
-let selection = -1; // index de l'activité affichée dans l'aperçu
+let selection = -1;
 
 /* ============================================================
-   Rendu d'une fiche (HTML du reçu)
+   Rendu d'une fiche à l'écran
    ============================================================ */
 function ligneHTML(l){
   if(Array.isArray(l)){
-    return '<div class="trow"><span>'+esc(l[0])+'</span><span class="r">'+esc(l[1])+'</span></div>';
+    return '<div class="row"><span>'+esc(l[0])+'</span><span class="v">'+esc(l[1])+'</span></div>';
   }
   const s = String(l);
   const m = s.match(/^\s*--\s*(.*?)\s*--\s*$/); // "-- Sous-titre --"
-  if(m) return '<p class="tsous">'+esc(m[1])+'</p>';
-  return '<p class="tnote">'+esc(s)+'</p>';
+  if(m) return '<p class="sous">'+esc(m[1])+'</p>';
+  return '<div class="note">'+esc(s)+'</div>';
 }
 
 function ficheHTML(i){
   const a = ACTIVITES[i]; if(!a) return '';
-  let h = '';
-  if(LOGO.impression) h+='<img class="tlogo" src="'+LOGO.impression+'">';
-  h+='<hr class="tsep">';
-  h+='<p class="tnom">'+esc(a.nom)+'</p>';
-  if(a.resume) h+='<p class="tresume">'+esc(a.resume)+'</p>';
+  let h = '<div class="fiche-tete">';
+  h+='<span class="eyebrow cat">'+esc(a.categorie||'Activité')+'</span>';
+  h+='<h2>'+esc(a.nom)+'</h2>';
+  if(a.resume) h+='<p class="resume">'+esc(a.resume)+'</p>';
+  h+='</div><div class="fiche-corps">';
   (a.sections||[]).forEach(sec=>{
-    h+='<hr class="tsep">';
-    if(sec.titre) h+='<p class="tsectitre">'+esc(sec.titre)+'</p>';
+    h+='<div class="sec">';
+    if(sec.titre) h+='<span class="eyebrow">'+esc(sec.titre)+'</span>';
     (sec.lignes||[]).forEach(l=>{ h+=ligneHTML(l); });
+    h+='</div>';
   });
-  if(PIED) h+='<hr class="tsep fin"><p class="tmerci">'+esc(PIED)+'</p>';
+  h+='</div>';
   return h;
 }
 
 /* ============================================================
-   Construction de la liste (groupée par catégorie)
+   Liste groupée par catégorie + recherche
    ============================================================ */
 function categories(){
   const ordre=[]; const map={};
@@ -270,16 +193,21 @@ function categories(){
   return ordre.map(c=>[c,map[c]]);
 }
 
+function texteActivite(a,cat){
+  let t = a.nom+' '+(a.resume||'')+' '+cat;
+  (a.sections||[]).forEach(s=>{
+    t+=' '+(s.titre||'');
+    (s.lignes||[]).forEach(l=> t+=' '+(Array.isArray(l)?l.join(' '):l));
+  });
+  return t.toLowerCase();
+}
+
 function construire(filtre){
   const f=(filtre||'').trim().toLowerCase();
   const root=document.getElementById('listes'); root.innerHTML='';
   let total=0;
   categories().forEach(([cat,idx])=>{
-    const visibles=idx.filter(i=>{
-      if(!f) return true;
-      const a=ACTIVITES[i];
-      return (a.nom+' '+(a.resume||'')+' '+cat).toLowerCase().includes(f);
-    });
+    const visibles=idx.filter(i=> !f || texteActivite(ACTIVITES[i],cat).includes(f));
     if(!visibles.length) return;
     total+=visibles.length;
     const g=document.createElement('div'); g.className='groupe';
@@ -302,150 +230,14 @@ function construire(filtre){
 
 function choisir(i){
   selection=i;
-  const ap=document.getElementById('apercu');
-  ap.innerHTML='<div class="ticket">'+ficheHTML(i)+'</div>';
-  document.getElementById('btnImprimer').disabled=false;
-  construire(document.getElementById('recherche').value); // rafraîchit l'état "actif"
-}
-
-/* ============================================================
-   Toast
-   ============================================================ */
-let toastTimer;
-function toast(msg, erreur){
-  const t=document.getElementById('toast');
-  t.innerHTML=msg; t.className='show'+(erreur?' err':'');
-  clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>t.className='', erreur?4000:2200);
-}
-
-/* ============================================================
-   QZ Tray — connexion, signature, impression
-   ============================================================ */
-function setStatut(t,c){ const el=document.getElementById('statut');
-  el.textContent='QZ Tray — '+t; el.className=c||''; }
-
-let SIGNE=false;
-async function configurerSignature(){
-  let cert=null, cle=null;
-  if(window.QZSIGN && window.QZSIGN.certificat){
-    cert=window.QZSIGN.certificat; cle=window.QZSIGN.cleePrivee;
-  }else{
-    try{
-      const rc=await fetch('signing/digital-certificate.txt'); if(rc.ok) cert=await rc.text();
-      const rk=await fetch('signing/private-key.pem');         if(rk.ok) cle=await rk.text();
-    }catch(e){}
-  }
-  if(cert && cle && cert.includes('BEGIN CERTIFICATE')){
-    qz.security.setCertificatePromise(res=>res(cert));
-    qz.security.setSignatureAlgorithm('SHA512');
-    qz.security.setSignaturePromise(toSign=>(res,rej)=>{
-      try{ const s=new KJUR.crypto.Signature({alg:'SHA512withRSA'});
-        s.init(cle); s.updateString(toSign); res(stob64(hextorstr(s.sign()))); }
-      catch(err){ rej(err); }
-    });
-    SIGNE=true;
+  document.getElementById('fiche').innerHTML=ficheHTML(i);
+  construire(document.getElementById('recherche').value); // met à jour l'état "actif"
+  if(window.matchMedia('(max-width:860px)').matches){
+    document.getElementById('fiche').scrollIntoView({behavior:'smooth', block:'start'});
   }
 }
 
-async function connecter(){
-  try{
-    if(qz.websocket.isActive()){ setStatut('connecté','ok'); return; }
-    setStatut('connexion…');
-    await configurerSignature();
-    await qz.websocket.connect({retries:1, delay:1});
-    setStatut('connecté'+(SIGNE?' · signé':' · non signé'),'ok');
-    await detecter();
-  }catch(e){
-    setStatut('démarre l\'application QZ','err');
-    alert("Impossible de joindre QZ Tray.\n\nVérifie que l'application QZ Tray est installée "+
-          "et démarrée (icône dans la barre des tâches), puis réessaie.\n\nqz.io/download");
-  }
-}
-
-async function detecter(){
-  const sel=document.getElementById('imprimante');
-  try{
-    const list=await qz.printers.find(); const def=await qz.printers.getDefault();
-    const arr=(Array.isArray(list)?list:[list]).filter(Boolean);
-    sel.innerHTML='<option value="">Défaut ('+(def||'système')+')</option>';
-    arr.forEach(p=>{
-      const o=document.createElement('option'); o.value=p; o.textContent=p; sel.appendChild(o);
-    });
-    let voulu=null; try{ voulu=localStorage.getItem('gp_printer'); }catch(e){}
-    if(voulu && arr.includes(voulu)){ sel.value=voulu; }
-    else{
-      const epson=arr.find(p=>/tm-?t88|tm88|epson|receipt|reçu|ticket/i.test(p));
-      if(epson) sel.value=epson;
-    }
-  }catch(e){}
-}
-
-let occupe=false;
-async function imprimer(){
-  if(occupe || selection<0) return;
-  occupe=true;
-  const btn=document.getElementById('btnImprimer'); btn.disabled=true;
-  try{
-    if(!qz.websocket.isActive()){
-      toast('Connexion à QZ Tray…');
-      await configurerSignature();
-      await qz.websocket.connect({retries:1, delay:1});
-      setStatut('connecté'+(SIGNE?' · signé':' · non signé'),'ok');
-      await detecter();
-    }
-
-    const mm=largeurMM();
-    const mesure=document.getElementById('mesure');
-    mesure.style.width=mm+'mm';
-    mesure.innerHTML='<div class="ticket" style="width:'+mm+'mm">'+ficheHTML(selection)+'</div>';
-    const BAS_MM=22;
-    const hMM=Math.ceil(mesure.firstChild.offsetHeight / 3.7795275591) + BAS_MM;
-    mesure.innerHTML='';
-
-    const doc = '<!DOCTYPE html><html><head><meta charset="utf-8"><style>'+
-      RECU_CSS+
-      ' *{box-sizing:border-box}'+
-      ' html,body{margin:0;padding:0;width:'+mm+'mm}'+
-      ' .ticket{width:'+mm+'mm;padding-bottom:'+BAS_MM+'mm}'+
-      '</style></head><body>'+
-      '<div class="ticket">'+ficheHTML(selection)+'</div></body></html>';
-
-    const printer=document.getElementById('imprimante').value || null;
-    const cfg=qz.configs.create(printer,{units:'mm', size:{width:mm, height:hMM},
-                                          margins:0, scaleContent:true, rasterize:true});
-    await qz.print(cfg, [{type:'pixel', format:'html', flavor:'plain', data:doc,
-                          options:{pageWidth:mm, pageHeight:hMM, units:'mm'}}]);
-    toast('<span class="pastille">✓</span>&nbsp; Fiche imprimée');
-  }catch(e){
-    const off = String(e).toLowerCase().includes('connect') || !qz.websocket.isActive();
-    toast(off ? 'QZ Tray non démarré — ouvre l\'application QZ' : 'Erreur d\'impression', true);
-  }finally{
-    btn.disabled=false; occupe=false;
-  }
-}
-
-/* CSS du reçu extrait pour le document d'impression */
-const RECU_CSS = [...document.styleSheets[0].cssRules]
-  .filter(r=>r.selectorText && r.selectorText.indexOf('.ticket')===0)
-  .map(r=>r.cssText).join('\n');
-
-/* ============================================================
-   Événements
-   ============================================================ */
-document.getElementById('btnConnecter').onclick=connecter;
-document.getElementById('btnRafraichir').onclick=detecter;
-document.getElementById('btnImprimer').onclick=imprimer;
 document.getElementById('recherche').oninput=e=>construire(e.target.value);
-
-document.getElementById('imprimante').onchange=e=>{
-  try{ localStorage.setItem('gp_printer', e.target.value); }catch(_){}
-};
-document.getElementById('largeur').onchange=e=>{
-  try{ localStorage.setItem('gp_paper', e.target.value); }catch(_){}
-  if(selection>=0) choisir(selection);
-};
-try{ const p=localStorage.getItem('gp_paper'); if(p) document.getElementById('largeur').value=p; }catch(_){}
 
 /* Démarrage */
 construire('');
