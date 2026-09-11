@@ -35,16 +35,18 @@ window.ACTIVITES = [
         ["10 courses", "225$"],
       ]},
       { titre: "Le circuit", lignes: [
-        "Karts électriques haute performance",
+        "Karts électriques haute performance, zéro émission",
         "Épingles, chicanes et longue ligne droite",
         "Chaque course dure 8 minutes",
+        "Gagnant = meilleur tour, pas la position",
+        "Exclusivité du circuit dès 8 pilotes (12 max en piste)",
       ]},
       { titre: "Conditions", lignes: [
         "142 cm min (4'8\")",
         "Moins de 12 ans : Junior ou qualifié standard",
-        "Décharge obligatoire à signer",
+        "Décharge obligatoire (signée par un parent si 16 ans et -)",
         "Pas de back-to-back",
-        "Cagoule ou casque avec visière obligatoire",
+        "Casque fourni · cagoule obligatoire dessous (2,95$)",
         "Chaussure fermée obligatoire",
         "300 lb max",
         "Forfaits 6 & 10 sur le web : section carte-cadeau",
@@ -66,6 +68,7 @@ window.ACTIVITES = [
     resume: "Challenge & Grand-Prix (groupes)",
     sections: [
       { titre: "Challenge", lignes: [
+        "2 courses (qualification + finale)",
         "Semaine (lun-jeu) : 85$/pers — min 8 pers",
         "-- Weekend (ven-dim), prix fixe --",
         ["12 personnes", "750$"],
@@ -73,6 +76,7 @@ window.ACTIVITES = [
         ["36 personnes", "2250$"],
       ]},
       { titre: "Grand-Prix", lignes: [
+        "3 courses (essai + qualification + finale)",
         "Semaine (lun-jeu) : 85$/pers — min 8 pers",
         "-- Weekend (ven-dim), prix fixe --",
         ["12 personnes", "950$"],
@@ -89,8 +93,9 @@ window.ACTIVITES = [
     resume: "Laser tag",
     sections: [
       { titre: "À savoir", lignes: [
-        "Arène thématique façon ville",
+        "Arène néon sur 2 étages, façon ville",
         "Stratégie, esprit d'équipe et réflexes",
+        "20 vestes disponibles",
       ]},
       { titre: "Prix", lignes: [
         ["1 partie",  "12$"],
@@ -193,6 +198,24 @@ window.ACTIVITES = [
     ],
   },
   {
+    nom: "Simulateur de course",
+    categorie: "Activités",
+    resume: "Pilotage façon F1",
+    sections: [
+      { titre: "À savoir", lignes: [
+        "2 simulateurs de course",
+        "Sensations de pilote pro",
+      ]},
+      { titre: "Prix", lignes: [
+        ["1 course / personne", "16$"],
+      ]},
+      { titre: "VIP", lignes: [
+        "Zone simulateurs exclusive 400$/h (2h min)",
+        "Jusqu'à 50 participants",
+      ]},
+    ],
+  },
+  {
     nom: "Arcade",
     categorie: "Activités",
     resume: "Forfaits de crédits",
@@ -209,6 +232,7 @@ window.ACTIVITES = [
         "Aucun remboursement",
         "Tous âges",
         "2$ d'activation par carte",
+        "Crédits bonus inclus dès la carte 30$",
         "Tickets gagnés conservés sur la carte",
       ]},
     ],
@@ -243,6 +267,10 @@ window.ACTIVITES = [
         "Noter la sorte de pizza à la réservation",
         "1 pizza = 8 pers / 2 pizzas = 9 à 16 pers",
         ["Pizza extra", "+60$"],
+      ]},
+      { titre: "À savoir", lignes: [
+        "Aucun apport extérieur (tout au Chicane Resto·Bar)",
+        "Gâteau d'anniversaire permis sur demande",
       ]},
     ],
   },
