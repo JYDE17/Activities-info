@@ -74,6 +74,7 @@ window.ACTIVITES = [
         ["12 personnes", "750$"],
         ["24 personnes", "1500$"],
         ["36 personnes", "2250$"],
+        "Chacun court 2 fois — 12 pilotes en piste",
       ]},
       { titre: "Grand-Prix", lignes: [
         "3 courses (essai + qualification + finale)",
@@ -82,6 +83,7 @@ window.ACTIVITES = [
         ["12 personnes", "950$"],
         ["24 personnes", "1900$"],
         ["36 personnes", "2850$"],
+        "Chacun court 3 fois — 12 pilotes en piste",
       ]},
     ],
   },
@@ -240,6 +242,31 @@ window.ACTIVITES = [
 
   /* ===================== ÉVÉNEMENTS & SALLES ===================== */
   {
+    nom: "Événement corporatif / groupe",
+    categorie: "Événements & salles",
+    resume: "Jusqu'à 120 invités",
+    sections: [
+      { titre: "À savoir", lignes: [
+        "Forfaits sur mesure — jusqu'à 120 invités",
+        "Traiteur par le Chicane Resto·Bar",
+        "Accès à toutes les activités",
+        "Aucun apport extérieur",
+      ]},
+      { titre: "Options VIP (par heure)", lignes: [
+        ["LaserPlex VIP (40 max)",       "700$"],
+        ["Lancer de hache VIP (24 max)", "600$"],
+        ["Fléchettes VIP",               "300$"],
+        ["Golf & multisport VIP (2h min)", "400$"],
+        ["Simulateurs golf & course VIP", "400$"],
+        ["Chicane Resto VIP (120 max, 2h min)", "250$"],
+      ]},
+      { titre: "Salle de conférence", lignes: [
+        ["Avec activité / heure (10-16 pers)", "100$"],
+        ["Sans activité / heure (10-16 pers)", "150$"],
+      ]},
+    ],
+  },
+  {
     nom: "Événement — LaserPlex exclusif",
     categorie: "Événements & salles",
     resume: "Privatisation laser tag",
@@ -247,6 +274,10 @@ window.ACTIVITES = [
       { titre: "Prix", lignes: [
         "2 parties — 40$/pers (min 10 pers)",
         "Moins de 10 pers : payer pour 10 personnes",
+      ]},
+      { titre: "À savoir", lignes: [
+        "Arène réservée exclusivement à ton groupe",
+        "Aussi en VIP à l'heure : 700$/h (40 max)",
       ]},
     ],
   },
