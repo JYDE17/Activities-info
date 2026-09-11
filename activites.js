@@ -69,7 +69,7 @@ window.ACTIVITES = [
     sections: [
       { titre: "Challenge", lignes: [
         "2 courses (qualification + finale)",
-        "Semaine (lun-jeu) : 85$/pers — min 8 pers",
+        "Semaine (lun-jeu) : 65$/pers — min 8 pers",
         "-- Weekend (ven-dim), prix fixe --",
         ["12 personnes", "750$"],
         ["24 personnes", "1500$"],
@@ -100,7 +100,7 @@ window.ACTIVITES = [
       { titre: "Prix", lignes: [
         ["1 partie",  "12$"],
         ["2 parties", "20$"],
-        ["3 parties", "26$"],
+        ["3 parties", "28$"],
       ]},
       { titre: "Conditions", lignes: [
         "Max 20 personnes en même temps",
@@ -108,7 +108,7 @@ window.ACTIVITES = [
         "Taille min 106 cm (42 po) — essayer la veste",
         "Décharge obligatoire à signer",
         "Chaussure fermée obligatoire",
-        "15 min / partie — 20 pers max / partie",
+        "10 min / partie — 20 pers max / partie",
       ]},
       { titre: "VIP", lignes: [
         "LaserPlex VIP 700$ (40 participants max)",
@@ -142,17 +142,17 @@ window.ACTIVITES = [
     ],
   },
   {
-    nom: "Fléchettes (Darts)",
+    nom: "Fléchettes (Krazy Darts)",
     categorie: "Activités",
-    resume: "Minimum 1h",
+    resume: "30 min ou 1h",
     sections: [
       { titre: "À savoir", lignes: [
         "4 allées interactives",
         "Jeux numériques + vraies fléchettes",
       ]},
-      { titre: "Prix", lignes: [
-        ["Par personne", "15$"],
-        "Minimum 1 heure",
+      { titre: "Prix (par personne)", lignes: [
+        ["30 minutes", "10$"],
+        ["1 heure",    "15$"],
       ]},
       { titre: "Conditions", lignes: [
         "12 ans et +",
@@ -226,7 +226,7 @@ window.ACTIVITES = [
         ["50$",  "350 crédits"],
         ["75$",  "560 crédits"],
         ["99$",  "800 crédits"],
-        ["169$", "1450 crédits"],
+        ["169$", "1400 crédits"],
       ]},
       { titre: "Conditions", lignes: [
         "Aucun remboursement",
