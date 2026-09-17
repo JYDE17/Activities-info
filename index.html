@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<title>GoPlex — Fiches d'activités</title>
+<script src="logo.js"></script>
+<script src="activites.js"></script>
+<style>
+  /* ---------- Palette de marque GoPlex ---------- */
+  :root{
+    --paper:#FAF8F3;      /* fond chaud clair */
+    --card:#FFFFFF;
+    --ink:#17140E;        /* noir chaud */
+    --muted:#8C857A;
+    --line:#ECE6D9;       /* filet hairline chaud */
+    --or:#D5A62E;         /* or principal */
+    --or-2:#E8CE6B;       /* or clair */
+    --noir:#1B1917;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    font-size:15px; line-height:1.5;
+  }
+  .eyebrow{
+    font:600 11px/1 "Arial Narrow",Arial,sans-serif;
+    letter-spacing:.22em; text-transform:uppercase; color:var(--muted);
+    display:block;
+  }
+
+  /* ---------- Entête ---------- */
+  header{
+    display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+    padding:18px 28px; background:var(--card);
+    border-bottom:1px solid var(--line);
+  }
+  header img.logo{height:42px; width:auto; display:block}
+  header .titre{border-left:1px solid var(--line); padding-left:18px}
+  header .titre h1{margin:0; font-size:16px; letter-spacing:.01em}
+  header .titre .eyebrow{margin-bottom:4px}
+
+  /* filet or façon ligne de course */
+  .stripe{height:3px; background:linear-gradient(90deg,var(--or) 0%,var(--or-2) 50%,var(--or) 100%)}
+
+  /* ---------- Disposition principale (2 volets) ---------- */
+  main{
+    display:grid; grid-template-columns:1fr 400px; gap:26px;
+    max-width:1120px; margin:0 auto; padding:26px 28px 60px; align-items:start;
+  }
+  @media (max-width:860px){ main{grid-template-columns:1fr} }
+
+  .recherche{margin:0 0 18px; position:relative}
+  .recherche input{
+    width:100%; font-size:15px; color:var(--ink); background:var(--card);
+    border:1px solid var(--line); border-radius:10px; padding:12px 14px;
+  }
+  .recherche input:focus-visible{outline:2px solid var(--or); outline-offset:1px}
+
+  .groupe{margin-bottom:26px}
+  .groupe .eyebrow{margin-bottom:10px}
+  .liste{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:10px}
+  .choix{
+    text-align:left; border:1px solid var(--line); background:var(--card);
+    padding:14px 16px; display:flex; flex-direction:column; gap:3px;
+    cursor:pointer; font-family:inherit; border-radius:8px;
+    transition:border-color .12s, box-shadow .12s, transform .06s;
+  }
+  .choix:hover{border-color:var(--or); box-shadow:0 2px 10px rgba(213,166,46,.18)}
+  .choix:active{transform:translateY(1px)}
+  .choix:focus-visible{outline:2px solid var(--or); outline-offset:2px}
+  .choix.actif{border-color:var(--or); box-shadow:inset 3px 0 0 var(--or)}
+  .choix b{font-size:14.5px}
+  .choix span{font-size:12px; color:var(--muted)}
+  .vide{color:var(--muted); font-size:14px; padding:8px 2px}
+
+  /* ---------- Volet fiche (sticky) ---------- */
+  aside{position:sticky; top:18px}
+  .fiche{
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    overflow:hidden; box-shadow:0 6px 22px rgba(23,20,14,.06);
+  }
+  .fiche-tete{padding:22px 22px 18px; border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,#fff, #FCFAF5)}
+  .fiche-tete .cat{margin-bottom:8px}
+  .fiche-tete h2{margin:0; font-size:22px; letter-spacing:.01em}
+  .fiche-tete .resume{margin:6px 0 0; color:var(--muted); font-size:14px}
+  .fiche-corps{padding:8px 22px 22px}
+
+  .sec{padding:16px 0; border-bottom:1px solid var(--line)}
+  .sec:last-child{border-bottom:0; padding-bottom:4px}
+  .sec .eyebrow{color:var(--or); margin-bottom:10px}
+  .row{display:flex; justify-content:space-between; gap:14px; align-items:baseline;
+    padding:5px 0; font-size:15px}
+  .row + .row{border-top:1px dashed var(--line)}
+  .row .v{font-weight:700; white-space:nowrap; text-align:right}
+  .note{display:flex; gap:9px; padding:4px 0; font-size:14.5px; color:var(--ink)}
+  .note::before{content:""; flex:0 0 6px; height:6px; margin-top:8px;
+    border-radius:50%; background:var(--or)}
+  .sous{font-weight:700; font-size:13px; margin:10px 0 4px; color:var(--ink);
+    letter-spacing:.02em}
+
+  .placeholder{padding:52px 26px; text-align:center; color:var(--muted); font-size:14.5px}
+  .placeholder .big{font-size:30px; display:block; margin-bottom:12px; opacity:.5}
+</style>
+</head>
+<body>
+<header>
+  <img class="logo" id="logoEntete" alt="GoPlex">
+  <div class="titre">
+    <div class="eyebrow">Info activités</div>
+    <h1>Fiches d'activités</h1>
+  </div>
+</header>
+<div class="stripe"></div>
+
+<main>
+  <section>
+    <div class="recherche">
+      <input type="search" id="recherche" placeholder="Rechercher une activité…" autocomplete="off">
+    </div>
+    <div id="listes"></div>
+  </section>
+
+  <aside>
+    <div class="fiche" id="fiche">
+      <div class="placeholder">
+        <span class="big">🎯</span>
+        Clique une activité à gauche pour voir toutes ses infos
+        (prix, conditions, VIP).
+      </div>
+    </div>
+  </aside>
+</main>
+
+<script>
+/* ============================================================
+   Données
+   ============================================================ */
+const ACTIVITES = window.ACTIVITES || [];
+const LOGO = window.LOGO || {};
+if(LOGO.couleur) document.getElementById('logoEntete').src = LOGO.couleur;
+
+const esc = s => String(s==null?'':s)
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+let selection = -1;
+
+/* ============================================================
+   Rendu d'une fiche à l'écran
+   ============================================================ */
+function ligneHTML(l){
+  if(Array.isArray(l)){
+    return '<div class="row"><span>'+esc(l[0])+'</span><span class="v">'+esc(l[1])+'</span></div>';
+  }
+  const s = String(l);
+  const m = s.match(/^\s*--\s*(.*?)\s*--\s*$/); // "-- Sous-titre --"
+  if(m) return '<p class="sous">'+esc(m[1])+'</p>';
+  return '<div class="note">'+esc(s)+'</div>';
+}
+
+function ficheHTML(i){
+  const a = ACTIVITES[i]; if(!a) return '';
+  let h = '<div class="fiche-tete">';
+  h+='<span class="eyebrow cat">'+esc(a.categorie||'Activité')+'</span>';
+  h+='<h2>'+esc(a.nom)+'</h2>';
+  if(a.resume) h+='<p class="resume">'+esc(a.resume)+'</p>';
+  h+='</div><div class="fiche-corps">';
+  (a.sections||[]).forEach(sec=>{
+    h+='<div class="sec">';
+    if(sec.titre) h+='<span class="eyebrow">'+esc(sec.titre)+'</span>';
+    (sec.lignes||[]).forEach(l=>{ h+=ligneHTML(l); });
+    h+='</div>';
+  });
+  h+='</div>';
+  return h;
+}
+
+/* ============================================================
+   Liste groupée par catégorie + recherche
+   ============================================================ */
+function categories(){
+  const ordre=[]; const map={};
+  ACTIVITES.forEach((a,i)=>{
+    const c=a.categorie||'Activités';
+    if(!map[c]){ map[c]=[]; ordre.push(c); }
+    map[c].push(i);
+  });
+  return ordre.map(c=>[c,map[c]]);
+}
+
+function texteActivite(a,cat){
+  let t = a.nom+' '+(a.resume||'')+' '+cat;
+  (a.sections||[]).forEach(s=>{
+    t+=' '+(s.titre||'');
+    (s.lignes||[]).forEach(l=> t+=' '+(Array.isArray(l)?l.join(' '):l));
+  });
+  return t.toLowerCase();
+}
+
+function construire(filtre){
+  const f=(filtre||'').trim().toLowerCase();
+  const root=document.getElementById('listes'); root.innerHTML='';
+  let total=0;
+  categories().forEach(([cat,idx])=>{
+    const visibles=idx.filter(i=> !f || texteActivite(ACTIVITES[i],cat).includes(f));
+    if(!visibles.length) return;
+    total+=visibles.length;
+    const g=document.createElement('div'); g.className='groupe';
+    g.innerHTML='<span class="eyebrow">'+esc(cat)+'</span>';
+    const liste=document.createElement('div'); liste.className='liste';
+    visibles.forEach(i=>{
+      const a=ACTIVITES[i];
+      const b=document.createElement('button');
+      b.className='choix'+(i===selection?' actif':''); b.type='button';
+      b.innerHTML='<b>'+esc(a.nom)+'</b>'+(a.resume?'<span>'+esc(a.resume)+'</span>':'');
+      b.onclick=()=>choisir(i);
+      liste.appendChild(b);
+    });
+    g.appendChild(liste); root.appendChild(g);
+  });
+  if(!total){
+    root.innerHTML='<p class="vide">Aucune activité ne correspond à « '+esc(filtre)+' ».</p>';
+  }
+}
+
+function choisir(i){
+  selection=i;
+  document.getElementById('fiche').innerHTML=ficheHTML(i);
+  construire(document.getElementById('recherche').value); // met à jour l'état "actif"
+  if(window.matchMedia('(max-width:860px)').matches){
+    document.getElementById('fiche').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+
+document.getElementById('recherche').oninput=e=>construire(e.target.value);
+
+/* Démarrage */
+construire('');
+</script>
+</body>
+</html>
